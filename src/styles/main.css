@@ -152,6 +152,33 @@ body {
   cursor: default;
 }
 
+.card--matched {
+  cursor: default;
+}
+
+.card--matched .card__face--front {
+  background: #fff5e8;
+  box-shadow: 0 0 0 3px var(--primary), var(--shadow);
+}
+
+.card--matched {
+  animation: match-pop 0.3s ease;
+}
+
+@keyframes match-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .card__face {
   position: absolute;
   inset: 0;
