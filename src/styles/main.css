@@ -298,3 +298,43 @@ body {
   font-weight: 600;
   color: var(--text);
 }
+/* ---------- Таблица лидеров ---------- */
+.leaderboard__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.leaderboard__head {
+  text-align: left;
+  padding: 8px 10px;
+  font-weight: 700;
+  color: var(--text-soft);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.leaderboard__cell {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.leaderboard__cell--place {
+  font-weight: 800;
+  color: var(--primary);
+  width: 40px;
+}
+
+.leaderboard__row:last-child .leaderboard__cell {
+  border-bottom: none;
+}
+
+.leaderboard__empty {
+  text-align: center;
+  padding: 24px 0;
+  color: var(--text-soft);
+  font-size: 15px;
+}

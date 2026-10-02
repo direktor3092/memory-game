@@ -8,16 +8,21 @@ export function renderApp(deck) {
   const board = createBoard(deck);
 
   const app = el('div', { className: 'app' }, [
-    header,
+    header.element,
     counters.container,
     board,
   ]);
   document.body.append(app);
 
-  return { board, counters };
+  return {
+    board,
+    counters,
+    newGameBtn: header.newGameBtn,
+    leaderboardBtn: header.leaderboardBtn,
+  };
 }
 
-// Шапка: заголовок и две кнопки. Обработчики пока пустые.
+// Шапка: заголовок и две кнопки. Обработчики вешает main.js.
 function createHeader() {
   const newGameBtn = el('button', {
     className: 'button button--primary',
@@ -33,14 +38,15 @@ function createHeader() {
 
   const title = el('h1', { className: 'header__title', textContent: 'Котячья память' });
 
-  return el('header', { className: 'header' }, [
+  const element = el('header', { className: 'header' }, [
     title,
     el('nav', { className: 'header__nav' }, [newGameBtn, leaderboardBtn]),
   ]);
+
+  return { element, newGameBtn, leaderboardBtn };
 }
 
 // Счётчики ходов и найденных пар.
-// Храним ссылки на span, чтобы потом менять только их текст.
 function createCounters() {
   const movesValue = el('span', { className: 'counter__value', textContent: '0' });
   const matchedValue = el('span', { className: 'counter__value', textContent: '0' });
@@ -61,13 +67,13 @@ function createCounters() {
   return { container, movesValue, matchedValue };
 }
 
-// Игровое поле 4×4. Рендерит все 16 карточек рубашкой вверх.
+// Игровое поле 4×4.
 function createBoard(deck) {
   const cards = deck.map(createCard);
   return el('main', { className: 'board' }, cards);
 }
 
-// Одна карточка: рубашка + лицевая сторона (фото + кличка).
+// Одна карточка: рубашка + лицевая сторона.
 function createCard(card) {
   const back = el('div', { className: 'card__face card__face--back' });
 
@@ -91,7 +97,7 @@ function createCard(card) {
   );
 }
 
-// Обновляет значения счётчиков на странице.
+// Обновляет значения счётчиков.
 export function updateCounters({ moves, matched }, counters) {
   counters.movesValue.textContent = String(moves);
   counters.matchedValue.textContent = String(matched);
