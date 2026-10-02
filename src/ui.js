@@ -69,8 +69,15 @@ function createCounters() {
 
 // Игровое поле 4×4.
 function createBoard(deck) {
+  const board = el('main', { className: 'board' });
+  renderCards(board, deck);
+  return board;
+}
+
+// Перерисовывает карточки внутри контейнера.
+export function renderCards(container, deck) {
   const cards = deck.map(createCard);
-  return el('main', { className: 'board' }, cards);
+  container.replaceChildren(...cards);
 }
 
 // Одна карточка: рубашка + лицевая сторона.

@@ -5,7 +5,7 @@ import { initGame } from './game.js';
 import { openLeaderboard } from './leaderboard.js';
 
 const deck = buildDeck();
-const { board, counters, leaderboardBtn } = renderApp(deck);
-initGame({ board, counters });
+const { board, counters, newGameBtn, leaderboardBtn } = renderApp(deck);
 
+initGame({ board, counters, newGameBtn });
 leaderboardBtn.addEventListener('click', openLeaderboard);

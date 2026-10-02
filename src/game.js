@@ -1,17 +1,48 @@
-import { state } from './state.js';
-import { updateCounters } from './ui.js';
+import { state, resetState } from './state.js';
+import { updateCounters, renderCards } from './ui.js';
 import { createModal } from './modal.js';
 import { el } from './dom.js';
 import { saveResult } from './storage.js';
+import { buildDeck } from './cards.js';
 
 let winModal = null;
+let gameContext = null;
 
-export function initGame({ board, counters }) {
+export function initGame({ board, counters, newGameBtn }) {
+  gameContext = { board, counters };
+
   board.addEventListener('click', (event) => {
     const card = event.target.closest('.card');
     if (!card) return;
     handleCardClick(card, counters);
   });
+
+  newGameBtn.addEventListener('click', startNewGame);
+}
+
+// Начинает новую игру: отменяет таймер, закрывает модалку, сбрасывает всё.
+export function startNewGame() {
+  if (!gameContext) return;
+  const { board, counters } = gameContext;
+
+  // 1. Отменяем таймер закрытия несовпавшей пары.
+  if (state.closeTimer) {
+    clearTimeout(state.closeTimer);
+    state.closeTimer = null;
+  }
+
+  // 2. Закрываем модалку победы, если открыта.
+  if (winModal) winModal.close();
+
+  // 3. Сбрасываем состояние.
+  resetState();
+
+  // 4. Обновляем счётчики на странице.
+  updateCounters(state, counters);
+
+  // 5. Перемешиваем и перерисовываем поле.
+  const deck = buildDeck();
+  renderCards(board, deck);
 }
 
 function handleCardClick(card, counters) {
@@ -32,12 +63,9 @@ function handleCardClick(card, counters) {
   const firstCard = state.firstCard;
   state.firstCard = null;
 
-  // Ждём, пока вторая карточка закончит переворот.
-  // transitionend на .card__inner сработает, когда transform завершится.
   const inner = card.querySelector('.card__inner');
 
   const onFlipEnd = (event) => {
-    // Игнорируем всплытие от других свойств (например, opacity).
     if (event.propertyName !== 'transform') return;
     inner.removeEventListener('transitionend', onFlipEnd);
 
@@ -50,6 +78,7 @@ function handleCardClick(card, counters) {
 
   inner.addEventListener('transitionend', onFlipEnd);
 }
+
 function handleMatch(card1, card2, counters) {
   card1.classList.add('card--matched');
   card2.classList.add('card--matched');
@@ -60,7 +89,6 @@ function handleMatch(card1, card2, counters) {
   if (state.matched === 8) {
     state.gameOver = true;
 
-    // Сохраняем результат один раз при победе.
     saveResult({
       moves: state.moves,
       date: new Date().toISOString(),
@@ -103,6 +131,7 @@ function showWinModal() {
     className: 'button button--primary',
     type: 'button',
     textContent: 'Новая игра',
+    onClick: () => startNewGame(),
   });
 
   const closeBtn = el('button', {
