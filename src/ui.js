@@ -94,11 +94,13 @@ function createCard(card) {
   ]);
 
   return el(
-    'div',
+    'button',
     {
       className: 'card',
+      type: 'button',
       'data-uid': card.uid,
       'data-id': card.id,
+      'aria-label': 'Открыть карточку',
     },
     [el('div', { className: 'card__inner' }, [back, front])]
   );

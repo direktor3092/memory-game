@@ -10,7 +10,7 @@
   --card-back-gradient: linear-gradient(145deg, #ffd9c9 0%, #ffbea3 100%);
   --radius: 16px;
   --shadow: 0 2px 12px rgba(61, 42, 38, 0.08);
-  --shadow-hover: 0 6px 20px rgba(61, 42, 38, 0.12);
+  --shadow-hover: 0 6px 20px rgba(61, 42, 38, 0.15);
 }
 
 *,
@@ -73,7 +73,7 @@ body {
   cursor: pointer;
   box-shadow: var(--shadow);
   transition: background 0.2s ease, color 0.2s ease,
-    box-shadow 0.2s ease, transform 0.1s ease;
+              box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .button:hover {
@@ -82,7 +82,12 @@ body {
 }
 
 .button:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.97);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .button--primary {
@@ -131,9 +136,24 @@ body {
 
 /* ---------- Карточка ---------- */
 .card {
+  position: relative;
   aspect-ratio: 1 / 1;
   perspective: 800px;
   cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.card:not(.card--open):not(.card--matched):hover {
+  transform: translateY(-3px);
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius);
 }
 
 .card__inner {
@@ -152,33 +172,6 @@ body {
   cursor: default;
 }
 
-.card--matched {
-  cursor: default;
-}
-
-.card--matched .card__face--front {
-  background: #fff5e8;
-  box-shadow: 0 0 0 3px var(--primary), var(--shadow);
-}
-
-.card--matched {
-  animation: match-pop 0.3s ease;
-}
-
-@keyframes match-pop {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.06);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
 .card__face {
   position: absolute;
   inset: 0;
@@ -195,14 +188,13 @@ body {
 .card__face--back {
   background: var(--card-back-gradient);
   box-shadow: var(--shadow);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
-.card:hover .card__face--back {
+.card:not(.card--open):not(.card--matched):hover .card__face--back {
   box-shadow: var(--shadow-hover);
 }
 
-/* декоративная лапка на рубашке */
 .card__face--back::after {
   content: '🐾';
   font-size: 32px;
@@ -216,6 +208,11 @@ body {
   box-shadow: var(--shadow);
   transform: rotateY(180deg);
   padding: 10px;
+}
+
+.card--matched .card__face--front {
+  box-shadow: 0 0 0 3px var(--primary), var(--shadow-hover);
+  background: linear-gradient(145deg, #fff 0%, #fff5ee 100%);
 }
 
 .card__img {
@@ -234,14 +231,19 @@ body {
   text-align: center;
   letter-spacing: 0.2px;
 }
+
 /* ---------- Модальное окно ---------- */
 .modal {
-  margin: auto;
+  position: relative;
   border: none;
-  background: transparent;
+  border-radius: var(--radius);
   padding: 0;
-  max-width: 480px;
+  max-width: 420px;
   width: calc(100% - 32px);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 20px 60px rgba(61, 42, 38, 0.25);
+  font-family: inherit;
 }
 
 .modal::backdrop {
@@ -250,31 +252,21 @@ body {
 }
 
 .modal__content {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 12px 40px rgba(61, 42, 38, 0.25);
-  animation: modal-in 0.2s ease;
-}
-
-@keyframes modal-in {
-  from { opacity: 0; transform: translateY(-12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  padding: 28px 24px 24px;
 }
 
 .modal__title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
+  margin-bottom: 16px;
   color: var(--text);
 }
 
 .modal__body {
   font-size: 15px;
-  color: var(--text);
   line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 20px;
 }
 
 .modal__actions {
@@ -283,6 +275,7 @@ body {
   justify-content: flex-end;
   flex-wrap: wrap;
 }
+
 /* ---------- Модалка победы ---------- */
 .win__cat {
   display: block;
@@ -298,6 +291,7 @@ body {
   font-weight: 600;
   color: var(--text);
 }
+
 /* ---------- Таблица лидеров ---------- */
 .leaderboard__table {
   width: 100%;
@@ -337,4 +331,85 @@ body {
   padding: 24px 0;
   color: var(--text-soft);
   font-size: 15px;
+}
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 600px) {
+  .app {
+    padding: 20px 12px 32px;
+    gap: 16px;
+  }
+
+  .header {
+    gap: 8px;
+  }
+
+  .header__title {
+    font-size: 20px;
+  }
+
+  .header__nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .counters {
+    padding: 10px 16px;
+    gap: 16px;
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+
+  .counter__value {
+    font-size: 18px;
+  }
+
+  .board {
+    gap: 8px;
+  }
+
+  .card__face--back::after {
+    font-size: 22px;
+  }
+
+  .card__nickname {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+
+  .modal__content {
+    padding: 24px 18px 18px;
+  }
+
+  .modal__title {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 380px) {
+  .board {
+    gap: 6px;
+  }
+
+  .card__face--front {
+    padding: 4px;
+  }
+
+  .card__nickname {
+    font-size: 10px;
+  }
+}
+
+/* Уважаем предпочтения пользователя */
+@media (prefers-reduced-motion: reduce) {
+  .card__inner,
+  .button,
+  .card {
+    transition: none;
+  }
 }
