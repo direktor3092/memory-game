@@ -225,7 +225,16 @@ body {
   box-shadow: 0 0 0 0.1875rem var(--primary), var(--shadow-hover);
   background: linear-gradient(145deg, #fff 0%, #fff5ee 100%);
 }
+.card--matched {
+  cursor: default;
+  animation: match-pop 0.3s ease;
+}
 
+@keyframes match-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
 .card__img {
   width: 100%;
   height: 70%;
@@ -420,7 +429,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card__inner,
   .button,
-  .card {
+  .card,
+  .card--matched {
     transition: none;
+    animation: none;
   }
 }
