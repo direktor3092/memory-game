@@ -73,7 +73,7 @@ body {
   cursor: pointer;
   box-shadow: var(--shadow);
   transition: background 0.2s ease, color 0.2s ease,
-              box-shadow 0.2s ease, transform 0.15s ease;
+    box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .button:hover {
@@ -234,7 +234,7 @@ body {
 
 /* ---------- Модальное окно ---------- */
 .modal {
-  position: relative;
+  margin: auto;
   border: none;
   border-radius: var(--radius);
   padding: 0;
@@ -407,6 +407,7 @@ body {
 
 /* Уважаем предпочтения пользователя */
 @media (prefers-reduced-motion: reduce) {
+
   .card__inner,
   .button,
   .card {
