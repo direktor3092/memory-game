@@ -2,6 +2,7 @@ import { state } from './state.js';
 import { updateCounters } from './ui.js';
 import { createModal } from './modal.js';
 import { el } from './dom.js';
+import { saveResult } from './storage.js';
 
 let winModal = null;
 
@@ -58,6 +59,13 @@ function handleMatch(card1, card2, counters) {
 
   if (state.matched === 8) {
     state.gameOver = true;
+
+    // Сохраняем результат один раз при победе.
+    saveResult({
+      moves: state.moves,
+      date: new Date().toISOString(),
+    });
+
     showWinModal();
   }
 }
