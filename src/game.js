@@ -31,13 +31,24 @@ function handleCardClick(card, counters) {
   const firstCard = state.firstCard;
   state.firstCard = null;
 
-  if (firstCard.dataset.id === card.dataset.id) {
-    handleMatch(firstCard, card, counters);
-  } else {
-    handleMismatch(firstCard, card, counters);
-  }
-}
+  // Ждём, пока вторая карточка закончит переворот.
+  // transitionend на .card__inner сработает, когда transform завершится.
+  const inner = card.querySelector('.card__inner');
 
+  const onFlipEnd = (event) => {
+    // Игнорируем всплытие от других свойств (например, opacity).
+    if (event.propertyName !== 'transform') return;
+    inner.removeEventListener('transitionend', onFlipEnd);
+
+    if (firstCard.dataset.id === card.dataset.id) {
+      handleMatch(firstCard, card, counters);
+    } else {
+      handleMismatch(firstCard, card, counters);
+    }
+  };
+
+  inner.addEventListener('transitionend', onFlipEnd);
+}
 function handleMatch(card1, card2, counters) {
   card1.classList.add('card--matched');
   card2.classList.add('card--matched');
