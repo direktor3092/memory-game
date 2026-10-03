@@ -3,7 +3,7 @@
   --surface: #ffffff;
   --primary: #e8875e;
   --primary-hover: #d9754c;
-  --accent: #7fb6cf;
+  --accent: #e8875e;
   --text: #3d2a26;
   --text-soft: #9d8c85;
   --border: #ffe4d4;
@@ -86,7 +86,7 @@ body {
 }
 
 .button:focus-visible {
-  outline: 0.1875rem solid var(--accent);
+  outline: 0.1875rem solid var(--primary);
   outline-offset: 0.125rem;
 }
 
@@ -162,7 +162,7 @@ body {
 }
 
 .card:focus-visible {
-  outline: 0.1875rem solid var(--accent);
+  outline: 0.1875rem solid var(--primary);
   outline-offset: 0.1875rem;
   border-radius: var(--radius);
 }

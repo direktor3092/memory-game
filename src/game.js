@@ -62,6 +62,7 @@ function handleCardClick(card, counters) {
 
   const firstCard = state.firstCard;
   state.firstCard = null;
+  state.isLocked = true;
 
   const inner = card.querySelector('.card__inner');
 
@@ -84,6 +85,8 @@ function handleMatch(card1, card2, counters) {
   card2.classList.add('card--matched');
 
   state.matched += 1;
+  state.isLocked = false;
+
   updateCounters(state, counters);
 
   if (state.matched === 8) {
@@ -99,8 +102,6 @@ function handleMatch(card1, card2, counters) {
 }
 
 function handleMismatch(card1, card2, counters) {
-  state.isLocked = true;
-
   state.closeTimer = setTimeout(() => {
     card1.classList.remove('card--open');
     card2.classList.remove('card--open');
