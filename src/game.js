@@ -183,6 +183,9 @@ function showWinModal() {
     onClick: () => winModal.close(),
   });
 
+
+  // Предзагрузка картинки для модалки победы,
+  // чтобы не было задержки при первом открытии.
   winModal.setActions([newGameBtn, closeBtn]);
   winModal.open();
 }

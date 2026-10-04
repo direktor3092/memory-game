@@ -23,3 +23,5 @@ muteBtn.addEventListener('click', () => {
   const newMuted = toggleMute();
   updateMuteButton(muteBtn, newMuted);
 });
+const winImage = new Image();
+winImage.src = `${import.meta.env.BASE_URL}images/logo.webp`;
