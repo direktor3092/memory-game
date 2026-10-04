@@ -4,6 +4,7 @@ import { createModal } from './modal.js';
 import { el } from './dom.js';
 import { saveResult } from './storage.js';
 import { buildDeck } from './cards.js';
+import { playSound, stopBackground, startBackground } from './audio.js';
 
 let winModal = null;
 let gameContext = null;
@@ -43,6 +44,7 @@ export function startNewGame() {
   // 5. Перемешиваем и перерисовываем поле.
   const deck = buildDeck();
   renderCards(board, deck);
+  startBackground();
 }
 
 function handleCardClick(card, counters) {
@@ -51,6 +53,7 @@ function handleCardClick(card, counters) {
   if (card.classList.contains('card--matched')) return;
 
   card.classList.add('card--open');
+  playSound('flip');
 
   if (!state.firstCard) {
     state.firstCard = card;
@@ -64,17 +67,29 @@ function handleCardClick(card, counters) {
   state.firstCard = null;
   state.isLocked = true;
 
-  const inner = card.querySelector('.card__inner');
-
-  const onFlipEnd = (event) => {
-    if (event.propertyName !== 'transform') return;
-    inner.removeEventListener('transitionend', onFlipEnd);
-
+  const finishPair = () => {
     if (firstCard.dataset.id === card.dataset.id) {
       handleMatch(firstCard, card, counters);
     } else {
       handleMismatch(firstCard, card, counters);
     }
+  };
+
+  // Если анимации отключены системно — transitionend не сработает.
+  // Проверяем медиа-запрос и, если нужно, вызываем логику сразу.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reducedMotion) {
+    finishPair();
+    return;
+  }
+
+  const inner = card.querySelector('.card__inner');
+
+  const onFlipEnd = (event) => {
+    if (event.propertyName !== 'transform') return;
+    inner.removeEventListener('transitionend', onFlipEnd);
+    finishPair();
   };
 
   inner.addEventListener('transitionend', onFlipEnd);
@@ -85,6 +100,7 @@ function handleMatch(card1, card2, counters) {
   card2.classList.add('card--matched');
 
   state.matched += 1;
+  playSound('match');
   state.isLocked = false;
 
   updateCounters(state, counters);
@@ -96,12 +112,14 @@ function handleMatch(card1, card2, counters) {
       moves: state.moves,
       date: new Date().toISOString(),
     });
-
+    playSound('win');
+    stopBackground();
     showWinModal();
   }
 }
 
 function handleMismatch(card1, card2, counters) {
+  playSound('mismatch');
   state.closeTimer = setTimeout(() => {
     card1.classList.remove('card--open');
     card2.classList.remove('card--open');

@@ -98,7 +98,6 @@ body {
 .button--primary:hover {
   background: var(--primary-hover);
 }
-
 /* Кнопка-иконка (без текста) */
 .button--icon {
   padding: 0.625rem 0.875rem;

@@ -19,6 +19,7 @@ export function renderApp(deck) {
     counters,
     newGameBtn: header.newGameBtn,
     leaderboardBtn: header.leaderboardBtn,
+    muteBtn: header.muteBtn,
   };
 }
 
@@ -36,14 +37,21 @@ function createHeader() {
     textContent: 'Таблица лидеров',
   });
 
+  const muteBtn = el('button', {
+    className: 'button button--icon',
+    type: 'button',
+    textContent: '🔊',
+    'aria-label': 'Выключить звук',
+  });
+
   const title = el('h1', { className: 'header__title', textContent: 'Котячья память' });
 
   const element = el('header', { className: 'header' }, [
     title,
-    el('nav', { className: 'header__nav' }, [newGameBtn, leaderboardBtn]),
+    el('nav', { className: 'header__nav' }, [newGameBtn, leaderboardBtn, muteBtn]),  // ← muteBtn тут
   ]);
 
-  return { element, newGameBtn, leaderboardBtn };
+  return { element, newGameBtn, leaderboardBtn, muteBtn };  // ← и тут
 }
 
 // Счётчики ходов и найденных пар.
@@ -110,4 +118,9 @@ function createCard(card) {
 export function updateCounters({ moves, matched }, counters) {
   counters.movesValue.textContent = String(moves);
   counters.matchedValue.textContent = String(matched);
+}
+
+export function updateMuteButton(muteBtn, muted) {
+  muteBtn.textContent = muted ? '🔇' : '🔊';
+  muteBtn.setAttribute('aria-label', muted ? 'Включить звук' : 'Выключить звук');
 }
