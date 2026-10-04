@@ -4,16 +4,15 @@
 const BASE = import.meta.env.BASE_URL;
 
 export const CARD_DATA = [
-  { id: 'cat-1', image: `${BASE}images/cards/cat-1.webp`, nickname: 'Барсик' },
-  { id: 'cat-2', image: `${BASE}images/cards/cat-2.webp`, nickname: 'Мурка' },
-  { id: 'cat-3', image: `${BASE}images/cards/cat-3.webp`, nickname: 'Дымок' },
-  { id: 'cat-4', image: `${BASE}images/cards/cat-4.webp`, nickname: 'Снежок' },
-  { id: 'cat-5', image: `${BASE}images/cards/cat-5.webp`, nickname: 'Тишка' },
-  { id: 'cat-6', image: `${BASE}images/cards/cat-6.webp`, nickname: 'Пушок' },
-  { id: 'cat-7', image: `${BASE}images/cards/cat-7.webp`, nickname: 'Рыжик' },
-  { id: 'cat-8', image: `${BASE}images/cards/cat-8.webp`, nickname: 'Лео' },
+  { id: 'cat-1', image: `${BASE}images/cards/cat-1.webp`, nickname: 'Мурка' },
+  { id: 'cat-2', image: `${BASE}images/cards/cat-2.webp`, nickname: 'Энви' },
+  { id: 'cat-3', image: `${BASE}images/cards/cat-3.webp`, nickname: 'Мячик' },
+  { id: 'cat-4', image: `${BASE}images/cards/cat-4.webp`, nickname: 'Вангоша' },
+  { id: 'cat-5', image: `${BASE}images/cards/cat-5.webp`, nickname: 'Миссис Мяу' },
+  { id: 'cat-6', image: `${BASE}images/cards/cat-6.webp`, nickname: 'Эби' },
+  { id: 'cat-7', image: `${BASE}images/cards/cat-7.webp`, nickname: 'Симба' },   // заглушка
+  { id: 'cat-8', image: `${BASE}images/cards/cat-8.webp`, nickname: 'Барон' },   // заглушка
 ];
-
 // Перемешивание Фишера — Йетса. Возвращает новый массив.
 export function shuffle(array) {
   const result = [...array];
