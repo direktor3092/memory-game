@@ -10,8 +10,8 @@ export const CARD_DATA = [
   { id: 'cat-4', image: `${BASE}images/cards/cat-4.webp`, nickname: 'Вангоша' },
   { id: 'cat-5', image: `${BASE}images/cards/cat-5.webp`, nickname: 'Миссис Мяу' },
   { id: 'cat-6', image: `${BASE}images/cards/cat-6.webp`, nickname: 'Эби' },
-  { id: 'cat-7', image: `${BASE}images/cards/cat-7.webp`, nickname: 'Симба' },   // заглушка
-  { id: 'cat-8', image: `${BASE}images/cards/cat-8.webp`, nickname: 'Барон' },   // заглушка
+  { id: 'cat-7', image: `${BASE}images/cards/cat-7.webp`, nickname: 'Шива' },
+  { id: 'cat-8', image: `${BASE}images/cards/cat-8.webp`, nickname: 'Пряник' },
 ];
 // Перемешивание Фишера — Йетса. Возвращает новый массив.
 export function shuffle(array) {
