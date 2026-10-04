@@ -6,6 +6,7 @@ import { saveResult } from './storage.js';
 import { buildDeck } from './cards.js';
 import { playSound, stopBackground, startBackground } from './audio.js';
 
+const BASE = import.meta.env.BASE_URL;
 const MISSES_THRESHOLD = 3;  // промахов подряд до звука несовпадения
 
 let winModal = null;
@@ -158,7 +159,7 @@ function showWinModal() {
 
   const catImage = el('img', {
     className: 'win__cat',
-    src: '/images/logo.webp',
+    src: `${BASE}images/logo.webp`,
     alt: '',
   });
 

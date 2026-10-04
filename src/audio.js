@@ -1,14 +1,14 @@
 // Управление звуками и фоновой музыкой.
-// Если файл не найден — ошибок не будет, просто тишина.
+const BASE = import.meta.env.BASE_URL;
 
 const SOUND_PATHS = {
-  flip: '/sounds/flip.mp3',
-  match: '/sounds/match.mp3',
-  mismatch: '/sounds/mismatch.mp3',
-  win: '/sounds/win.mp3',
+  flip: `${BASE}sounds/flip.mp3`,
+  match: `${BASE}sounds/match.mp3`,
+  mismatch: `${BASE}sounds/mismatch.mp3`,
+  win: `${BASE}sounds/win.mp3`,
 };
 
-const BG_PATH = '/sounds/background.mp3';
+const BG_PATH = `${BASE}sounds/background.mp3`;
 const MUTE_KEY = 'memory-game-muted';
 
 let muted = false;
