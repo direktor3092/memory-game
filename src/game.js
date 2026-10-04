@@ -103,7 +103,6 @@ function handleMatch(card1, card2, counters) {
 
   state.matched += 1;
   state.consecutiveMisses = 0;
-  playSound('match');
   state.isLocked = false;
 
   updateCounters(state, counters);
@@ -115,9 +114,12 @@ function handleMatch(card1, card2, counters) {
       moves: state.moves,
       date: new Date().toISOString(),
     });
+
     playSound('win');
     stopBackground();
     showWinModal();
+  } else {
+    playSound('match');
   }
 }
 
