@@ -31,7 +31,8 @@ body {
 
 /* ---------- Контейнер ---------- */
 .app {
-  max-width: 45rem;          /* 720px */
+  max-width: 45rem;
+  /* 720px */
   margin: 0 auto;
   padding: 2rem 1.25rem 3rem;
   display: flex;
@@ -49,7 +50,8 @@ body {
 }
 
 .header__title {
-  font-size: 1.625rem;       /* 26px */
+  font-size: 1.625rem;
+  /* 26px */
   font-weight: 800;
   color: var(--text);
   letter-spacing: -0.02em;
@@ -67,13 +69,14 @@ body {
   background: var(--surface);
   color: var(--text);
   border-radius: 999px;
-  font-size: 0.875rem;       /* 14px */
+  font-size: 0.875rem;
+  /* 14px */
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
   box-shadow: var(--shadow);
   transition: background 0.2s ease, color 0.2s ease,
-              box-shadow 0.2s ease, transform 0.15s ease;
+    box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .button:hover {
@@ -98,6 +101,7 @@ body {
 .button--primary:hover {
   background: var(--primary-hover);
 }
+
 /* Кнопка-иконка (без текста) */
 .button--icon {
   padding: 0.625rem 0.875rem;
@@ -113,7 +117,8 @@ body {
 .counters {
   display: flex;
   gap: 1.5rem;
-  font-size: 0.9375rem;      /* 15px */
+  font-size: 0.9375rem;
+  /* 15px */
   padding: 0.875rem 1.375rem;
   background: var(--surface);
   border-radius: var(--radius);
@@ -133,7 +138,8 @@ body {
 
 .counter__value {
   font-weight: 800;
-  font-size: 1.25rem;        /* 20px */
+  font-size: 1.25rem;
+  /* 20px */
   color: var(--primary);
 }
 
@@ -147,7 +153,7 @@ body {
 /* ---------- Карточка ---------- */
 .card {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 4;
   perspective: 50rem;
   cursor: pointer;
   border: none;
@@ -207,7 +213,8 @@ body {
 
 .card__face--back::after {
   content: '🐾';
-  font-size: 2rem;           /* 32px */
+  font-size: 2rem;
+  /* 32px */
   opacity: 0.35;
   filter: saturate(0);
 }
@@ -217,34 +224,45 @@ body {
   background: var(--surface);
   box-shadow: var(--shadow);
   transform: rotateY(180deg);
-  padding: 0.625rem;
+  padding: 0.375rem;
 }
 
 .card--matched .card__face--front {
   box-shadow: 0 0 0 0.1875rem var(--primary), var(--shadow-hover);
   background: linear-gradient(145deg, #fff 0%, #fff5ee 100%);
 }
+
 .card--matched {
   cursor: default;
   animation: match-pop 0.3s ease;
 }
 
 @keyframes match-pop {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.06); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
+
 .card__img {
   width: 100%;
-  height: 70%;
+  height: 85%;
   object-fit: cover;
-  border-radius: 0.625rem;
+  border-radius: 0.5rem;
   background: #f5ebe6;
 }
 
 .card__nickname {
-  margin-top: 0.5rem;
-  font-size: 0.8125rem;      /* 13px */
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  /* 13px */
   font-weight: 700;
   color: var(--text);
   text-align: center;
@@ -257,7 +275,8 @@ body {
   border: none;
   border-radius: var(--radius);
   padding: 0;
-  max-width: 26.25rem;       /* 420px */
+  max-width: 26.25rem;
+  /* 420px */
   width: calc(100% - 2rem);
   background: var(--surface);
   color: var(--text);
@@ -275,7 +294,8 @@ body {
 }
 
 .modal__title {
-  font-size: 1.375rem;       /* 22px */
+  font-size: 1.375rem;
+  /* 22px */
   font-weight: 800;
   margin-bottom: 1rem;
   color: var(--text);
@@ -298,7 +318,8 @@ body {
 /* ---------- Модалка победы ---------- */
 .win__cat {
   display: block;
-  width: 7.5rem;             /* 120px */
+  width: 7.5rem;
+  /* 120px */
   height: 7.5rem;
   object-fit: contain;
   margin: 0 auto 1rem;
@@ -353,7 +374,9 @@ body {
 }
 
 /* ---------- Адаптив ---------- */
-@media (max-width: 37.5em) {              /* 600px */
+@media (max-width: 37.5em) {
+
+  /* 600px */
   .app {
     padding: 1.25rem 0.75rem 2rem;
     gap: 1rem;
@@ -396,9 +419,13 @@ body {
     font-size: 1.375rem;
   }
 
+  .card__img {
+    height: 82%;
+  }
+
   .card__nickname {
     font-size: 0.6875rem;
-    margin-top: 0.25rem;
+    margin-top: 0.125rem;
   }
 
   .modal__content {
@@ -410,7 +437,9 @@ body {
   }
 }
 
-@media (max-width: 23.75em) {             /* 380px */
+@media (max-width: 23.75em) {
+
+  /* 380px */
   .board {
     gap: 0.375rem;
   }
@@ -426,6 +455,7 @@ body {
 
 /* Уважаем предпочтения пользователя */
 @media (prefers-reduced-motion: reduce) {
+
   .card__inner,
   .button,
   .card,
@@ -436,9 +466,19 @@ body {
 }
 
 @keyframes mismatch-shake {
-  0%, 100% { transform: rotateY(180deg) translateX(0); }
-  25%      { transform: rotateY(180deg) translateX(-0.25rem); }
-  75%      { transform: rotateY(180deg) translateX(0.25rem); }
+
+  0%,
+  100% {
+    transform: rotateY(180deg) translateX(0);
+  }
+
+  25% {
+    transform: rotateY(180deg) translateX(-0.25rem);
+  }
+
+  75% {
+    transform: rotateY(180deg) translateX(0.25rem);
+  }
 }
 
 .card--mismatch-shake .card__face--front {
