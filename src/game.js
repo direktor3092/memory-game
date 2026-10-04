@@ -6,6 +6,8 @@ import { saveResult } from './storage.js';
 import { buildDeck } from './cards.js';
 import { playSound, stopBackground, startBackground } from './audio.js';
 
+const MISSES_THRESHOLD = 3;  // промахов подряд до звука несовпадения
+
 let winModal = null;
 let gameContext = null;
 
@@ -100,6 +102,7 @@ function handleMatch(card1, card2, counters) {
   card2.classList.add('card--matched');
 
   state.matched += 1;
+  state.consecutiveMisses = 0;
   playSound('match');
   state.isLocked = false;
 
@@ -119,7 +122,24 @@ function handleMatch(card1, card2, counters) {
 }
 
 function handleMismatch(card1, card2, counters) {
-  playSound('mismatch');
+  state.consecutiveMisses += 1;
+
+  const isStreak = state.consecutiveMisses >= MISSES_THRESHOLD;
+
+  if (isStreak) {
+    playSound('mismatch');
+
+    card1.classList.add('card--mismatch-shake');
+    card2.classList.add('card--mismatch-shake');
+
+    setTimeout(() => {
+      card1.classList.remove('card--mismatch-shake');
+      card2.classList.remove('card--mismatch-shake');
+    }, 300);
+
+    state.consecutiveMisses = 0;
+  }
+
   state.closeTimer = setTimeout(() => {
     card1.classList.remove('card--open');
     card2.classList.remove('card--open');

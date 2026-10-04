@@ -434,3 +434,13 @@ body {
     animation: none;
   }
 }
+
+@keyframes mismatch-shake {
+  0%, 100% { transform: rotateY(180deg) translateX(0); }
+  25%      { transform: rotateY(180deg) translateX(-0.25rem); }
+  75%      { transform: rotateY(180deg) translateX(0.25rem); }
+}
+
+.card--mismatch-shake .card__face--front {
+  animation: mismatch-shake 0.3s ease;
+}
