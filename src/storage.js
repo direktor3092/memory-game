@@ -1,8 +1,6 @@
 const STORAGE_KEY = 'memory-game-leaderboard';
 const MAX_RESULTS = 10;
 
-// Возвращает массив результатов из localStorage.
-// Если данных нет или они повреждены — возвращает пустой массив.
 export function getResults() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -14,13 +12,11 @@ export function getResults() {
   }
 }
 
-// Добавляет результат и сохраняет топ-10.
-// result: { moves: number, date: string (ISO), country?, isp?, vpn? }
+
 export function saveResult(result) {
   const results = getResults();
   results.push(result);
 
-  // Сортировка: меньше ходов → выше; при равенстве — раньше дата → выше.
   results.sort((a, b) => {
     if (a.moves !== b.moves) return a.moves - b.moves;
     return new Date(a.date) - new Date(b.date);
@@ -32,7 +28,6 @@ export function saveResult(result) {
   return top;
 }
 
-// Форматирует дату ISO в ДД.ММ.ГГГГ.
 export function formatDate(isoString) {
   const date = new Date(isoString);
   const day = String(date.getDate()).padStart(2, '0');

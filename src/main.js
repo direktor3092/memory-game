@@ -15,10 +15,8 @@ updateMuteButton(muteBtn, isMuted());
 initGame({ board, counters, newGameBtn });
 leaderboardBtn.addEventListener('click', openLeaderboard);
 
-// Фоновая музыка стартует после первого клика по странице.
 document.addEventListener('click', startBackground, { once: true });
 
-// Кнопка mute
 muteBtn.addEventListener('click', () => {
   const newMuted = toggleMute();
   updateMuteButton(muteBtn, newMuted);

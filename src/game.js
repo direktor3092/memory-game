@@ -7,7 +7,7 @@ import { buildDeck } from './cards.js';
 import { playSound, stopBackground, startBackground } from './audio.js';
 
 const BASE = import.meta.env.BASE_URL;
-const MISSES_THRESHOLD = 3;  // промахов подряд до звука несовпадения
+const MISSES_THRESHOLD = 3;
 
 let winModal = null;
 let gameContext = null;
@@ -24,27 +24,21 @@ export function initGame({ board, counters, newGameBtn }) {
   newGameBtn.addEventListener('click', startNewGame);
 }
 
-// Начинает новую игру: отменяет таймер, закрывает модалку, сбрасывает всё.
 export function startNewGame() {
   if (!gameContext) return;
   const { board, counters } = gameContext;
 
-  // 1. Отменяем таймер закрытия несовпавшей пары.
   if (state.closeTimer) {
     clearTimeout(state.closeTimer);
     state.closeTimer = null;
   }
 
-  // 2. Закрываем модалку победы, если открыта.
   if (winModal) winModal.close();
 
-  // 3. Сбрасываем состояние.
   resetState();
 
-  // 4. Обновляем счётчики на странице.
   updateCounters(state, counters);
 
-  // 5. Перемешиваем и перерисовываем поле.
   const deck = buildDeck();
   renderCards(board, deck);
   startBackground();
@@ -78,8 +72,6 @@ function handleCardClick(card, counters) {
     }
   };
 
-  // Если анимации отключены системно — transitionend не сработает.
-  // Проверяем медиа-запрос и, если нужно, вызываем логику сразу.
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (reducedMotion) {
@@ -183,9 +175,6 @@ function showWinModal() {
     onClick: () => winModal.close(),
   });
 
-
-  // Предзагрузка картинки для модалки победы,
-  // чтобы не было задержки при первом открытии.
   winModal.setActions([newGameBtn, closeBtn]);
   winModal.open();
 }

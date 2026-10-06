@@ -4,7 +4,6 @@ import { getResults, formatDate } from './storage.js';
 
 let modal = null;
 
-// Открывает модалку с таблицей лидеров.
 export function openLeaderboard() {
   if (!modal) {
     modal = createModal({ title: 'Таблица лидеров' });
@@ -34,7 +33,6 @@ export function openLeaderboard() {
   modal.open();
 }
 
-// Строит таблицу результатов.
 function createTable(results) {
   const rows = results.map((result, index) => {
     return el('tr', { className: 'leaderboard__row' }, [

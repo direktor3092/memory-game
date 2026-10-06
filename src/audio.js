@@ -1,4 +1,3 @@
-// Управление звуками и фоновой музыкой.
 const BASE = import.meta.env.BASE_URL;
 
 const SOUND_PATHS = {
@@ -32,7 +31,6 @@ export function initAudio() {
   muted = localStorage.getItem(MUTE_KEY) === 'true';
 }
 
-// Короткий звук. Если уже играет — перезапускает.
 export function playSound(name) {
   if (muted) return;
   const audio = sounds[name];
@@ -42,11 +40,10 @@ export function playSound(name) {
     audio.currentTime = 0;
     audio.play().catch(() => {});
   } catch {
-    // тихо игнорируем — файл ещё не загрузился и т.п.
+
   }
 }
 
-// Запуск фоновой музыки. Вызывать только после действия пользователя.
 export function startBackground() {
   if (muted || !background || backgroundStarted) return;
   backgroundStarted = true;

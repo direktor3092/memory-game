@@ -1,15 +1,3 @@
-/**
- * Создаёт DOM-элемент с атрибутами и дочерними элементами.
- *
- * @param {string} tag — имя тега ('div', 'button', 'img', ...)
- * @param {Object} [props] — свойства и атрибуты элемента:
- *   - className: 'card card--open'  → станет атрибутом class
- *   - textContent: 'Привет'          → станет текстом
- *   - onClick: fn                    → навесит addEventListener('click', fn)
- *   - src: '/images/cat.webp'        → обычный атрибут
- * @param {Array} [children] — дочерние узлы (строки или элементы)
- * @returns {HTMLElement}
- */
 export function el(tag, props = {}, children = []) {
   const node = document.createElement(tag);
 

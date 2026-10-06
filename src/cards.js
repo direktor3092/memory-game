@@ -1,6 +1,3 @@
-// Данные карточек: 8 котов, каждый встречается дважды.
-// Поле `nickname` используется как alt и как подпись на открытой карточке.
-
 const BASE = import.meta.env.BASE_URL;
 
 export const CARD_DATA = [
@@ -13,7 +10,7 @@ export const CARD_DATA = [
   { id: 'cat-7', image: `${BASE}images/cards/cat-7.webp`, nickname: 'Шива' },
   { id: 'cat-8', image: `${BASE}images/cards/cat-8.webp`, nickname: 'Пряник' },
 ];
-// Перемешивание Фишера — Йетса. Возвращает новый массив.
+
 export function shuffle(array) {
   const result = [...array];
 
@@ -25,7 +22,6 @@ export function shuffle(array) {
   return result;
 }
 
-// Собирает колоду из 16 карточек (каждая пара дважды) и перемешивает.
 export function buildDeck() {
   const doubled = CARD_DATA.flatMap((card) => [
     { ...card, uid: `${card.id}-a` },

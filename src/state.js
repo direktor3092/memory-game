@@ -1,21 +1,13 @@
-/**
- * Глобальное состояние игры.
- * Все модули импортируют этот объект и меняют его поля.
- */
 export const state = {
-  moves: 0,               // число ходов
-  matched: 0,             // число найденных пар
-  firstCard: null,        // DOM-элемент первой открытой карточки
-  isLocked: false,        // блокировка кликов (пока пара не закрылась)
-  gameOver: false,        // игра завершена
-  closeTimer: null,       // id таймера закрытия несовпавшей пары
-  consecutiveMisses: 0,   // промахи подряд (для куклы-скримера)
+  moves: 0,               
+  matched: 0,             
+  firstCard: null,        
+  isLocked: false,        
+  gameOver: false,        
+  closeTimer: null,       
+  consecutiveMisses: 0,   
 };
 
-/**
- * Сбрасывает состояние к началу новой игры.
- * Отменяет активный таймер, если он был.
- */
 export function resetState() {
   if (state.closeTimer) {
     clearTimeout(state.closeTimer);

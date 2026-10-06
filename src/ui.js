@@ -1,7 +1,5 @@
 import { el } from './dom.js';
 
-// Создаёт контейнер приложения и наполняет его.
-// Возвращает ссылки на важные узлы — их будем обновлять в game.js.
 export function renderApp(deck) {
   const header = createHeader();
   const counters = createCounters();
@@ -23,7 +21,6 @@ export function renderApp(deck) {
   };
 }
 
-// Шапка: заголовок и две кнопки. Обработчики вешает main.js.
 function createHeader() {
   const newGameBtn = el('button', {
     className: 'button button--primary',
@@ -48,13 +45,12 @@ function createHeader() {
 
   const element = el('header', { className: 'header' }, [
     title,
-    el('nav', { className: 'header__nav' }, [newGameBtn, leaderboardBtn, muteBtn]),  // ← muteBtn тут
+    el('nav', { className: 'header__nav' }, [newGameBtn, leaderboardBtn, muteBtn]),
   ]);
 
-  return { element, newGameBtn, leaderboardBtn, muteBtn };  // ← и тут
+  return { element, newGameBtn, leaderboardBtn, muteBtn };
 }
 
-// Счётчики ходов и найденных пар.
 function createCounters() {
   const movesValue = el('span', { className: 'counter__value', textContent: '0' });
   const matchedValue = el('span', { className: 'counter__value', textContent: '0' });
@@ -75,20 +71,17 @@ function createCounters() {
   return { container, movesValue, matchedValue };
 }
 
-// Игровое поле 4×4.
 function createBoard(deck) {
   const board = el('main', { className: 'board' });
   renderCards(board, deck);
   return board;
 }
 
-// Перерисовывает карточки внутри контейнера.
 export function renderCards(container, deck) {
   const cards = deck.map(createCard);
   container.replaceChildren(...cards);
 }
 
-// Одна карточка: рубашка + лицевая сторона.
 function createCard(card) {
   const back = el('div', { className: 'card__face card__face--back' });
 
@@ -114,7 +107,6 @@ function createCard(card) {
   );
 }
 
-// Обновляет значения счётчиков.
 export function updateCounters({ moves, matched }, counters) {
   counters.movesValue.textContent = String(moves);
   counters.matchedValue.textContent = String(matched);
